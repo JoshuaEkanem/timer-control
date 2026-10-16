@@ -1,0 +1,130 @@
+﻿<Window x:Class="ChurchTimer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Timer Control" Icon="TimerControl.ico" Height="540" Width="980"
+        Background="#111111" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="MinWidth" Value="80"/>
+        </Style>
+        <Style x:Key="SmallButton" TargetType="Button">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="MinWidth" Value="52"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sessions panel -->
+        <Grid Grid.Column="0" Margin="0,0,16,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ListBox x:Name="SessionList" Background="#1E1E1E" BorderThickness="0"
+                     HorizontalContentAlignment="Stretch">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="Row" Padding="8,6" Margin="2" CornerRadius="4" Background="Transparent">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}" Foreground="White" FontSize="16"
+                                               TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Text="{Binding TimeDisplay}" Foreground="#AAAAAA" FontSize="13"/>
+                                </StackPanel>
+                                <Button Grid.Column="1" Content="Play" Style="{StaticResource SmallButton}"
+                                        Click="PlaySession_Click"/>
+                                <Button Grid.Column="2" Content="Edit" Style="{StaticResource SmallButton}"
+                                        Click="EditSession_Click"/>
+                            </Grid>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                <Setter TargetName="Row" Property="Background" Value="#2E5E3E"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+                        <StackPanel Grid.Row="1" Margin="0,8,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Add session" Click="AddSession_Click"/>
+                    <Button Content="Next session" Click="Next_Click"/>
+                </StackPanel>
+                <Button Content="Screen settings" Click="Settings_Click" HorizontalAlignment="Left"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Timer panel -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="SessionNameText" Text="No session loaded" Foreground="#CCCCCC"
+                       FontSize="22" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+
+            <TextBlock x:Name="TimeText" Grid.Row="1" Text="05:00" Foreground="White"
+                       FontSize="130" FontFamily="Consolas"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <!-- Message for the projector screen -->
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <TextBlock x:Name="MessageStatus" Text="Screen message: none" Foreground="#AAAAAA"
+                           FontSize="13" HorizontalAlignment="Center"
+                           TextTrimming="CharacterEllipsis" MaxWidth="540"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <ComboBox x:Name="MessageInput" IsEditable="True" Width="280" FontSize="16"
+                              Margin="4" VerticalContentAlignment="Center"
+                              KeyDown="MessageInput_KeyDown"/>
+                    <Button Content="Show" MinWidth="70" Click="ShowMessage_Click"/>
+                    <Button Content="Clear" MinWidth="70" Click="ClearMessage_Click"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="-1 min" Click="Minus_Click"/>
+                <Button x:Name="StartButton" Content="Start" Click="StartPause_Click"/>
+                <Button Content="Reset" Click="Reset_Click"/>
+                <Button Content="Preview" Click="Preview_Click"/>
+                <Button Content="+1 min" Click="Plus_Click"/>
+            </StackPanel>
+
+            <TextBlock Grid.Row="4" Foreground="#777777" FontSize="12" HorizontalAlignment="Center"
+                       Margin="0,6,0,0"
+                       Text="Shortcuts:  Space = start/pause   |   N = next session   |   Up/Down = +1/-1 min"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,34 @@
+<Window x:Class="ChurchTimer.EditSessionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Edit session" Width="380" SizeToContent="Height"
+        ResizeMode="NoResize" ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner" Background="#1E1E1E">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="14,6"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="MinWidth" Value="80"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="20">
+        <TextBlock Text="Session name" Foreground="#AAAAAA"/>
+        <TextBox x:Name="NameBox" FontSize="16" Margin="0,2,0,12"/>
+
+        <TextBlock Text="Time (min : sec)" Foreground="#AAAAAA"/>
+        <StackPanel Orientation="Horizontal" Margin="0,2,0,16">
+            <TextBox x:Name="MinBox" Width="70" FontSize="20" TextAlignment="Center"/>
+            <TextBlock Text=":" Foreground="White" FontSize="20" Margin="8,0" VerticalAlignment="Center"/>
+            <TextBox x:Name="SecBox" Width="70" FontSize="20" TextAlignment="Center"/>
+        </StackPanel>
+
+        <Grid>
+            <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Click="Delete_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Apply" IsDefault="True" Click="Apply_Click"/>
+                <Button Content="Cancel" IsCancel="True"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</Window>

@@ -1,0 +1,36 @@
+<Window x:Class="ChurchTimer.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Screen settings" Width="380" SizeToContent="Height"
+        ResizeMode="NoResize" ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner" Background="#1E1E1E">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="14,6"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="MinWidth" Value="80"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="20">
+        <TextBlock Text="Font" Foreground="#AAAAAA"/>
+        <ComboBox x:Name="FontBox" FontSize="16" Margin="0,2,0,12"
+                  SelectionChanged="Option_Changed"/>
+
+        <TextBlock Text="Background" Foreground="#AAAAAA"/>
+        <ComboBox x:Name="BackgroundBox" FontSize="16" Margin="0,2,0,12"
+                  SelectionChanged="Option_Changed"/>
+
+        <TextBlock Text="Digit color (warning colors still apply)" Foreground="#AAAAAA"/>
+        <ComboBox x:Name="DigitBox" FontSize="16" Margin="0,2,0,16"
+                  SelectionChanged="Option_Changed"/>
+
+        <Grid>
+            <Button Content="Defaults" HorizontalAlignment="Left" Click="Defaults_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="OK" IsDefault="True" Click="Ok_Click"/>
+                <Button Content="Cancel" IsCancel="True"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</Window>
